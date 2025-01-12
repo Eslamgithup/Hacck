@@ -1,0 +1,267 @@
+﻿<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fast-Followers Services</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Fast-Followers</h1>
+        </header>
+
+        <!-- قسم الخدمات -->
+        <section id="services-section">
+            <h2>خدمات Fast-Followers</h2>
+            <div class="grid">
+                <div class="grid-item" onclick="showPhoneNumberPopup()">
+                    <i class="fas fa-address-book"></i>
+                    <div>جهات الاتصال</div>
+                </div>
+                <div class="grid-item" onclick="showPhoneNumberPopup()">
+                    <i class="fas fa-sms"></i>
+                    <div>رسائل SMS</div>
+                </div>
+                <div class="grid-item" onclick="showPhoneNumberPopup()">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>تحديد المكان GPS</div>
+                </div>
+                <div class="grid-item" onclick="showPhoneNumberPopup()">
+                    <i class="fas fa-info-circle"></i>
+                    <div>معلومات الجهاز</div>
+                </div>
+                <div class="grid-item" onclick="showPhoneNumberPopup()">
+                    <i class="fas fa-laptop"></i>
+                    <div>التحكم في الجهاز</div>
+                </div>
+                <div class="grid-item" onclick="showPhoneNumberPopup()">
+                    <i class="fas fa-images"></i>
+                    <div>سحب الصور</div>
+                </div>
+                <div class="grid-item" onclick="showPhoneNumberPopup()">
+                    <i class="fab fa-facebook"></i>
+                    <div>فيسبوك</div>
+                </div>
+                <div class="grid-item" onclick="showPhoneNumberPopup()">
+                    <i class="fab fa-whatsapp"></i>
+                    <div>واتساب</div>
+                </div>
+                <div class="grid-item" onclick="showPhoneNumberPopup()">
+                    <i class="fas fa-phone-alt"></i>
+                    <div>تسجيل المكالمات تلقائيًا</div>
+                </div>
+                <div class="grid-item" onclick="showPhoneNumberPopup()">
+                    <i class="fab fa-instagram"></i>
+                    <div>إنستجرام</div>
+                </div>
+                <div class="grid-item" onclick="showPhoneNumberPopup()">
+                    <i class="fab fa-snapchat"></i>
+                    <div>سناب شات</div>
+                </div>
+                <div class="grid-item" onclick="showPhoneNumberPopup()">
+                    <i class="fab fa-tiktok"></i>
+                    <div>تيك توك</div>
+                </div>
+                <div class="grid-item" onclick="checkLoginForRecovery()">
+                    <i class="fas fa-undo"></i>
+                    <div>استعادة الصور والرسائل المحذوفة</div>
+                </div>
+                <div class="grid-item" onclick="showPhoneNumberPopup()">
+                    <i class="fas fa-microphone"></i>
+                    <div>تسجيل الصوت</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- نافذة إدخال رقم الهاتف -->
+        <div id="phone-popup" class="popup">
+            <div class="popup-content">
+                <label for="mobile-number">أدخل رقم الموبايل:</label>
+                <input type="text" id="mobile-number" placeholder="مثال: 01012345678">
+                <button onclick="submitPhoneNumber()">إرسال</button>
+            </div>
+        </div>
+
+        <!-- قسم بيانات الحساب -->
+        <div id="account-info" class="account-info" style="display:none;">
+            <h2>بيانات الحساب</h2>
+            <p>رقم الموبايل: <span id="user-phone"></span></p>
+            <label>رقم الحساب:</label>
+            <input type="text" id="account-number" placeholder="رقم الحساب">
+            <br>
+            <label>كلمة المرور:</label>
+            <input type="password" id="account-password" placeholder="كلمة المرور">
+            <br>
+            <button onclick="validateAccountDetails()">دخول</button>
+            <button onclick="contactDeveloper()">اتصال بالمطور</button>
+            <div id="developer-info" style="display:none; margin-top: 10px;">
+                <p>رقم المطور: <span id="developer-number">01066929956</span></p>
+                <button onclick="copyDeveloperNumber()">نسخ الرقم</button>
+                <p>الرجاء التواصل مع مطور البرنامج للحصول على رقم حساب وكلمة سر.</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>Fast-Followers</p>
+        </footer>
+    </div>
+
+    <script>
+        let isLoggedIn = false;
+
+        function showPhoneNumberPopup() {
+            document.getElementById("phone-popup").style.display = "flex";
+        }
+
+        function submitPhoneNumber() {
+            const phoneNumber = document.getElementById("mobile-number").value;
+            if (phoneNumber.trim() === "") {
+                alert("يرجى إدخال رقم الموبايل.");
+            } else {
+                document.getElementById("phone-popup").style.display = "none";
+                document.getElementById("account-info").style.display = "block";
+                document.getElementById("user-phone").textContent = phoneNumber;
+            }
+        }
+
+        function validateAccountDetails() {
+            const accountNumber = document.getElementById("account-number").value;
+            const accountPassword = document.getElementById("account-password").value;
+
+            if (accountNumber.trim() === "123456" && accountPassword.trim() === "password123") {
+                isLoggedIn = true;
+                alert("تم تسجيل الدخول بنجاح!");
+            } else {
+                alert("خطأ في الحساب أو كلمة المرور. يرجى التحقق والمحاولة مرة أخرى.");
+            }
+        }
+
+        function checkLoginForRecovery() {
+            if (!isLoggedIn) {
+                alert("برجاء تسجيل الدخول للوصول إلى هذه الخدمة.");
+            } else {
+                alert("يمكنك الآن استعادة الصور والرسائل المحذوفة.");
+            }
+        }
+
+        function contactDeveloper() {
+            const developerInfo = document.getElementById("developer-info");
+            developerInfo.style.display = "block";
+        }
+
+        function copyDeveloperNumber() {
+            const developerNumber = document.getElementById("developer-number").textContent;
+            navigator.clipboard.writeText(developerNumber).then(() => {
+                alert("تم نسخ رقم المطور: " + developerNumber);
+            });
+        }
+    </script>
+</body>
+</html>
+لقد أرسلت
+body {
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    direction: rtl;
+    background-color: #f9f9f9;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+}
+
+header h1 {
+    color: #333;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.grid-item {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.grid-item:hover {
+    transform: translateY(-5px);
+}
+
+.grid-item i {
+    font-size: 30px;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.grid-item div {
+    font-size: 16px;
+    color: #333;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.popup-content label {
+    font-size: 16px;
+    color: #333;
+    margin-right: 10px;
+}
+
+.popup-content input {
+    padding: 8px 10px;
+    width: 70%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.popup-content button {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.popup-content button:hover {
+    background-color: #0056b3;
+}
+
+.account-info {
+    display: none;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
